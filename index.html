@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+<style>
+    body {
+        font-family: "josefin sans";
+        margin: 0;
+        font-size: 30px;
+        color: #fff;
+        text-shadow: 0 0 8px #000;
+    }
+
+    .panels {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .panel {
+        flex-basis: 20%;
+        text-align: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+            flex-basis 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
+        overflow: hidden;
+        flex: 1;
+    }
+
+    .panels .panel:nth-child(1) {
+        background-image: url(https://source.unsplash.com/random/1024x768/?nature,road);
+    }
+
+    .panels .panel:nth-child(2) {
+        background-image: url(https://source.unsplash.com/random/1024x768/?nature,abstract);
+    }
+
+    .panels .panel:nth-child(3) {
+        background-image: url(https://source.unsplash.com/random/1024x768/?nature,mountains);
+    }
+
+    .panels .panel:nth-child(4) {
+        background-image: url(https://source.unsplash.com/random/1024x768/?nature,sky);
+    }
+
+    .panels .panel:nth-child(5) {
+        background-image: url(https://source.unsplash.com/random/1024x768/?nature,dark);
+    }
+
+    .panel:hover {
+        cursor: pointer;
+    }
+
+    .panel.open {
+        flex-basis: 30%;
+        font-size: 40px;
+    }
+
+    .panel>* {
+        transition: transform 0.5s;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .panel>*:first-child {
+        transform: translateY(-100%);
+    }
+
+    .panel.open-active>*:first-child {
+        transform: translateY(0%);
+    }
+
+    .panel>*:last-child {
+        transform: translateY(100%);
+    }
+
+    .panel.open-active>*:last-child {
+        transform: translateY(0%);
+    }
+
+    @media screen and (max-width: 850px) {
+        .panels {
+            flex-direction: column;
+        }
+
+        .panel {
+            height: 20vh;
+            flex-basis: 100%;
+            transition:
+                height 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+                font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+                background 0.2s;
+        }
+
+        .panel>*:first-child {
+            transform: translateY(-25vh);
+        }
+
+        .panel.open-active>*:first-child {
+            transform: translateY(0);
+        }
+
+        .panel>*:last-child {
+            transform: translateY(25vh);
+        }
+
+        .panel.open-active>*:last-child {
+            transform: translateY(0);
+        }
+
+        .panel.open {
+            height: 50vh;
+            flex-basis: 100%;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="panels">
+        <div class="panel">
+            <h4>HEY</h4>
+            <h1>LET'S</h1>
+            <h4>DANCE</h4>
+        </div>
+        <div class="panel">
+            <h4>GIVE</h4>
+            <h1>TAKE</h1>
+            <h4>RECIEVE</h4>
+        </div>
+        <div class="panel">
+            <h4>EXPERIENCE</h4>
+            <h1>IT</h1>
+            <h4>NOW</h4>
+        </div>
+        <div class="panel">
+            <h4>GIVE</h4>
+            <h1>ALL</h1>
+            <h4>YOU CAN</h4>
+        </div>
+        <div class="panel">
+            <h4>LIFE</h4>
+            <h1>IN</h1>
+            <h4>MOTION</h4>
+        </div>
+    </div>
+
+
+    <script>
+        const panels = document.querySelectorAll(".panels .panel");
+
+        panels.forEach(panel => {
+            panel.addEventListener("click", openPanel);
+            panel.addEventListener("transitionend", toggleActive);
+        });
+
+        function toggleActive(e) {
+            console.log(e);
+            if (
+                (e.propertyName == "flex-basis" && e.elapsedTime == 0.7) ||
+                (e.propertyName == "height" && e.elapsedTime == 0.7)
+            ) {
+                if (this.classList.contains("open")) {
+                    this.classList.add("open-active");
+                } else if (this.classList.contains("open-active")) {
+                    this.classList.remove("open-active");
+                }
+            }
+        }
+
+        function openPanel() {
+            this.classList.toggle("open");
+        }
+    </script>
+
+</body>
+
+</html>
